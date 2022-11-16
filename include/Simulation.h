@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-
 #include "Graph.h"
 #include "Agent.h"
 
@@ -12,10 +11,9 @@ class Simulation
 {
 public:
     Simulation(Graph g, vector<Agent> agents);
-
+    bool have_sixtyOne;
     void step();
     bool shouldTerminate() const;
-
     const Graph &getGraph() const;
     const vector<Agent> &getAgents() const;
     const Party &getParty(int partyId) const;

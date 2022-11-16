@@ -1,19 +1,33 @@
 #include "Simulation.h"
 
-Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents) 
+Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), have_sixtyOne(false)
 {
     // You can change the implementation of the constructor, but not the signature!
 }
 
-void Simulation::step()
+void Simulation::step() // running step for parties and agents
 {
     // TODO: implement this method
+    vector<Party> p_list = mGraph.getParties();
+    for(Party p : p_list){
+        p.step(*this);
+    }
+    for(Agent Smith : mAgents){
+        Smith.step(*this);
+    }
 }
 
 bool Simulation::shouldTerminate() const
 {
     // TODO implement this method
-    return true;
+    bool flag(true); // used to signal whether all the parties are in joined state
+    vector<Party> p_list = getGraph().getParties();
+    for(Party p : p_list){
+        if(p.getState() != Joined){
+            flag = false;
+        }
+    }
+    return flag || have_sixtyOne;
 }
 
 const Graph &Simulation::getGraph() const
