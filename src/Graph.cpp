@@ -20,7 +20,12 @@ int Graph::getNumVertices() const
     return mVertices.size();
 }
 
-const Party &Graph::getParty(int partyId) const
+const Party& Graph::getParty(int partyId) const
 {
     return mVertices[partyId];
+}
+
+// this method returns a reference to the vector containing all the parties
+const vector<Party>& Graph::getParties() const{
+    return mVertices;
 }
