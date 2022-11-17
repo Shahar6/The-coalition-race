@@ -13,6 +13,7 @@ public:
     int getNumVertices() const;
     const Party &getParty(int partyId) const;
     const vector<Party>& getParties() const;
+    const vector<vector<int>> get;
 
 private:
     vector<Party> mVertices;

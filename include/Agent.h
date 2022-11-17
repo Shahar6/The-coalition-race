@@ -15,7 +15,9 @@ public:
     void step(Simulation &);
 
 private:
+    int cId;
     int mAgentId;
     int mPartyId;
     SelectionPolicy *mSelectionPolicy;
+    
 };

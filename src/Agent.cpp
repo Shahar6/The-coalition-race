@@ -1,6 +1,6 @@
 #include "Agent.h"
 
-Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy)
+Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy), cId(-1)
 {
     // You can change the implementation of the constructor, but not the signature! hi shahar
 }

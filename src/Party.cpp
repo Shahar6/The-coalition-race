@@ -1,10 +1,9 @@
 #include "Party.h"
-
-Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), coalition(-1) 
+#include "Graph.h"
+Party::Party(int id, string name, int mandates, JoinPolicy *jp, Graph graph, vector<int> neighbors) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), coalition(-1), mGraph(graph)
 {
-    // You can change the implementation of the constructor, but not the signature!
+    for()
 }
-
 State Party::getState() const
 {
     return mState;
@@ -28,4 +27,14 @@ const string & Party::getName() const
 void Party::step(Simulation &s)
 {
     // TODO: implement this method
+}
+
+const int & Party::getId() const
+{
+   return mId;
+}
+
+const Graph Party::getGraph()
+{
+    return mGraph;
 }
