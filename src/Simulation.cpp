@@ -5,7 +5,7 @@ Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgen
     int counter=0;
     for(Agent Smith : agents){
         Smith.setcId(counter);
-        Coalitions[0][counter] = Smith.getPartyId();
+        Coalitions[counter][0] = Smith.getPartyId();
         if(graph.getMandates(Smith.getPartyId()) >= 61){
             have_sixtyOne = true;
         }
