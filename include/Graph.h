@@ -14,6 +14,7 @@ public:
     int getNumVertices() const;
     const Party &getParty(int partyId) const;
     const vector<Party>& getParties() const;
+    const vector<vector<int>> get;
     const vector<int>& getNeighborsIds(int partyId, Simulation &s) const;
     const vector<int>* getValidNeighborsIds(int partyId, int cId, Simulation &) const; // the one who uses this function is responsible to delete the object!
 

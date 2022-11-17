@@ -21,4 +21,5 @@ private:
     int mAgentId;
     int mPartyId;
     SelectionPolicy *mSelectionPolicy;
+    
 };
