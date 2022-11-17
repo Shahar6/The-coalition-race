@@ -16,7 +16,7 @@ enum State
 class Party
 {
 public:
-    Party(int id, string name, int mandates, JoinPolicy *, Graph graph, vector<int> neighbors); 
+    Party(int id, string name, int mandates, JoinPolicy *); 
 
     State getState() const;
     void setState(State state);
@@ -32,8 +32,5 @@ private:
     int mMandates;
     JoinPolicy *mJoinPolicy;
     State mState;
-    int coalition;
-    Graph mGraph;
-    vector<int> mNeighbors;
     
 };

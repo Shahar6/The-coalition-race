@@ -1,8 +1,8 @@
 #include "Party.h"
 #include "Graph.h"
-Party::Party(int id, string name, int mandates, JoinPolicy *jp, Graph graph, vector<int> neighbors) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), coalition(-1), mGraph(graph)
+Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting)
 {
-    for()
+
 }
 State Party::getState() const
 {
@@ -32,9 +32,4 @@ void Party::step(Simulation &s)
 const int & Party::getId() const
 {
    return mId;
-}
-
-const Graph Party::getGraph()
-{
-    return mGraph;
 }
