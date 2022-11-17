@@ -24,7 +24,6 @@ public:
     void step(Simulation &s);
     const string &getName() const;
     const int &getId() const;
-    const Graph getGraph();
 
 private:
     int mId;

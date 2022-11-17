@@ -9,7 +9,6 @@ class Agent
 {
 public:
     Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy);
-
     int getPartyId() const;
     int getId() const;
     void step(Simulation &);
@@ -17,9 +16,8 @@ public:
     int getcId() const;
 
 private:
-    int cId;
     int mAgentId;
     int mPartyId;
     SelectionPolicy *mSelectionPolicy;
-    
+    int cId;
 };

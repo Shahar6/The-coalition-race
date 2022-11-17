@@ -11,14 +11,14 @@ class Simulation
 {
 public:
     Simulation(Graph g, vector<Agent> agents);
-    bool have_sixtyOne;
-    vector<vector<int>> Coalitions;
     void step();
     bool shouldTerminate() const;
     const Graph &getGraph() const;
     const vector<Agent> &getAgents() const;
     const Party &getParty(int partyId) const;
     const vector<vector<int>> getPartiesByCoalitions() const;
+    bool have_sixtyOne;
+    vector<vector<int>> Coalitions;
 
 private:
     Graph mGraph;
