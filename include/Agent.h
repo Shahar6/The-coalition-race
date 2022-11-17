@@ -13,6 +13,7 @@ public:
     int getPartyId() const;
     int getId() const;
     void step(Simulation &);
+    void setcId(int cId);
 
 private:
     int cId;

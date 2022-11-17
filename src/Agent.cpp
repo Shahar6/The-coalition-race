@@ -19,3 +19,8 @@ void Agent::step(Simulation &sim)
 {
     // TODO: implement this method
 }
+
+void Agent::setcId(int id)
+{
+    cId = id;
+}

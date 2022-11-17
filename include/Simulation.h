@@ -12,6 +12,7 @@ class Simulation
 public:
     Simulation(Graph g, vector<Agent> agents);
     bool have_sixtyOne;
+    vector<vector<int>> Coalitions;
     void step();
     bool shouldTerminate() const;
     const Graph &getGraph() const;
