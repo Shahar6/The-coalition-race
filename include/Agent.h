@@ -14,6 +14,7 @@ public:
     int getId() const;
     void step(Simulation &);
     void setcId(int cId);
+    int getcId() const;
 
 private:
     int cId;

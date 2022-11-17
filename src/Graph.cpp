@@ -24,6 +24,28 @@ const Party& Graph::getParty(int partyId) const
 {
     return mVertices[partyId];
 }
+const vector<int>& Graph::getNeighborsIds(int partyId, Simulation &s) const{
+    return mEdges[partyId];
+}
+
+const vector<int>* Graph::getValidNeighborsIds(int partyId, int cId, Simulation &s) const{
+    vector<int>* ret = new vector<int>;
+    vector<int> temp = s.getPartiesByCoalitions()[cId];
+    vector<int> all_n = getNeighborsIds(partyId, s);
+    for(int p_edge : all_n){
+        bool contains = false;
+        for(int e : temp){
+            if(e == p_edge){
+                contains = true;
+            }
+        }
+        if(!contains){
+            (*ret).push_back(p_edge);
+        }
+    }
+    return ret;
+
+}
 
 // this method returns a reference to the vector containing all the parties
 const vector<Party>& Graph::getParties() const{
