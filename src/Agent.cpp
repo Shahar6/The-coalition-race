@@ -1,6 +1,6 @@
 #include "Agent.h"
 
-Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy)
+Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy), cId(-1)
 {
     // You can change the implementation of the constructor, but not the signature!
 }
@@ -18,4 +18,9 @@ int Agent::getPartyId() const
 void Agent::step(Simulation &sim)
 {
     // TODO: implement this method
+}
+
+void Agent::setcId(int id)
+{
+    cId = id;
 }

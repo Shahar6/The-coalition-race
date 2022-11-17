@@ -1,7 +1,16 @@
 #include "Simulation.h"
 
-Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), have_sixtyOne(false)
+Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), have_sixtyOne(false), Coalitions()
 {
+    int counter=0;
+    for(Agent Smith : agents){
+        Smith.setcId(counter);
+        Coalitions[0][counter] = Smith.getPartyId();
+        if(graph.getMandates(Smith.getPartyId()) >= 61){
+            have_sixtyOne = true;
+        }
+        counter++;
+    }
     // You can change the implementation of the constructor, but not the signature!
 }
 
@@ -49,6 +58,5 @@ const Party &Simulation::getParty(int partyId) const
 /// At the simulation initialization - the result will be [[agent0.partyId], [agent1.partyId], ...]
 const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
-    // TODO: you MUST implement this method for getting proper output, read the documentation above.
-    return vector<vector<int>>();
+    return Coalitions;
 }
