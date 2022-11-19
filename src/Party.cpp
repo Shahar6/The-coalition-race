@@ -1,7 +1,6 @@
 #include "Party.h"
 #include "Graph.h"
-#include "vector"
-Party::Party(int id, string name, int mandates, JoinPolicy *jp, Graph graph, vector<int> neighbor) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), coalition(-1), mGraph(graph)
+Party::Party(int id, string name, int mandates, JoinPolicy *jp, Graph graph, vector<int> neighbors) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting)
 {
 }
 State Party::getState() const
