@@ -1,6 +1,6 @@
 #include "Graph.h"
 
-Graph::Graph(vector<Party> vertices, vector<vector<int>> edges) : mVertices(vertices), mEdges(edges) 
+Graph::Graph(vector<Party> vertices, vector<vector<int>> edges) : mVertices(vertices), mEdges(edges)
 {
     // You can change the implementation of the constructor, but not the signature!
 }
@@ -20,44 +20,39 @@ int Graph::getNumVertices() const
     return mVertices.size();
 }
 
-const Party& Graph::getParty(int partyId) const
+const Party &Graph::getParty(int partyId) const
 {
     return mVertices[partyId];
 }
-const vector<int>& Graph::getNeighborsIds(int partyId, Simulation &s) const{
+const vector<int> &Graph::getNeighborsIds(int partyId, Simulation &s) const
+{
     return mEdges[partyId];
 }
 
-const vector<int>* Graph::getValidNeighborsIds(int partyId, int cId, Simulation &s) const{
-    vector<int>* ret = new vector<int>;
-    vector<int> temp = s.getPartiesByCoalitions()[cId];
+// this method returns only the neighbors u may offer to join ur coalition, remember to delete the vector after usage
+const vector<int> *Graph::getValidNeighborsIds(int partyId, int cId, Simulation &s) const
+{
+    vector<int> *ret = new vector<int>;
     vector<int> all_n = getNeighborsIds(partyId, s);
-    for(int p_edge : all_n){
-        bool contains = false;
-        for(int e : temp){
-            if(e == p_edge){
-                contains = true;
-            }
-        }
-        if(!contains){
-            (*ret).push_back(p_edge);
+    for (int p_edge : all_n)
+    {
+        if (this->getParty(p_edge).getState() != Joined) // checks that the party isn't in a coalition already
+        {
+                vector<int> p_offers = this->getParty(p_edge).getOffers();
+                if (std::count(p_offers.begin(), p_offers.end(), cId)) // checks if the party has an offer from the coalition
+                {
+                }
+                else
+                {
+                    (*ret).push_back(p_edge); // adds the party to the vector
+                }           
         }
     }
     return ret;
-
 }
 
 // this method returns a reference to the vector containing all the parties
-const vector<Party>& Graph::getParties() const{
+const vector<Party> &Graph::getParties() const
+{
     return mVertices;
-}
-
-vector<int> Graph::getOffers(Party &party)
-{
-    return offers[party.getId()]; 
-}
-
-void Graph::addOffertoAParty(Agent &a, Party &party)
-{
-    getOffers(&party).push_back(a.getId);
 }
