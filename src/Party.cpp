@@ -1,8 +1,8 @@
 #include "Party.h"
 #include "Graph.h"
-Party::Party(int id, string name, int mandates, JoinPolicy *jp, Graph graph, vector<int> neighbors) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), coalition(-1), mGraph(graph)
+#include "vector"
+Party::Party(int id, string name, int mandates, JoinPolicy *jp, Graph graph, vector<int> neighbor) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), coalition(-1), mGraph(graph)
 {
-    for()
 }
 State Party::getState() const
 {
@@ -34,6 +34,13 @@ const int & Party::getId() const
    return mId;
 }
 
+const Party::vector<int>& getOffers() const{
+    return offersbycId;
+}
+
+const void Party::AddOffer(int cId){
+  offersbycId.pushback(cId);  
+}
 const Graph Party::getGraph()
 {
     return mGraph;

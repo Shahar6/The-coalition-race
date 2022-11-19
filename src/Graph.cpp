@@ -51,3 +51,13 @@ const vector<int>* Graph::getValidNeighborsIds(int partyId, int cId, Simulation 
 const vector<Party>& Graph::getParties() const{
     return mVertices;
 }
+
+vector<int> Graph::getOffers(Party &party)
+{
+    return offers[party.getId()]; 
+}
+
+void Graph::addOffertoAParty(Agent &a, Party &party)
+{
+    getOffers(&party).push_back(a.getId);
+}

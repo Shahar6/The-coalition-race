@@ -5,16 +5,16 @@
 
 class SelectionPolicy {
     public:
-      void select() ;
+      virtual const void select()=0;
 };
 
 class MandatesSelectionPolicy: public SelectionPolicy{ 
     public:
-      const Party &select(Agent &a, Graph &g) ;
+      virtual const int select(Agent &a, Graph &g, Simulation &s);
 };
 class EdgeWeightSelectionPolicy: public SelectionPolicy{ 
     public:
-      const Party &select(Agent &a, Graph &g) ;
+      virtual const int select(Agent &a, Graph &g, Simulation &s);
 };
  
 

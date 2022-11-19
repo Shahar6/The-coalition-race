@@ -25,6 +25,8 @@ public:
     const string &getName() const;
     const int &getId() const;
     const Graph getGraph();
+    const vector<int>& getOffers() const;
+    const void AddOffer(int cId);
 
 private:
     int mId;
@@ -33,7 +35,5 @@ private:
     JoinPolicy *mJoinPolicy;
     State mState;
     int coalition;
-    Graph mGraph;
-    vector<int> mNeighbors;
-    
+    vector<int> offersbycId;
 };
