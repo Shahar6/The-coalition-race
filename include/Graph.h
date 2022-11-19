@@ -3,7 +3,6 @@
 #include <vector>
 #include <algorithm>
 #include "Party.h"
-#include "Simulation.h"
 
 using std::vector;
 
