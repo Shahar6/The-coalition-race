@@ -38,14 +38,14 @@ const vector<int> *Graph::getValidNeighborsIds(int partyId, int cId, Simulation 
     {
         if (this->getParty(p_edge).getState() != Joined) // checks that the party isn't in a coalition already
         {
-                vector<int> p_offers = this->getParty(p_edge).getOffers();
-                if (std::count(p_offers.begin(), p_offers.end(), cId)) // checks if the party has an offer from the coalition
-                {
-                }
-                else
-                {
-                    (*ret).push_back(p_edge); // adds the party to the vector
-                }           
+            vector<int> p_offers = this->getParty(p_edge).getOffers();
+            if (std::count(p_offers.begin(), p_offers.end(), cId)) // checks if the party has an offer from the coalition
+            {
+            }
+            else
+            {
+                (*ret).push_back(p_edge); // adds the party to the vector
+            }
         }
     }
     return ret;

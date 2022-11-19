@@ -2,11 +2,13 @@
 
 Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), have_sixtyOne(false), Coalitions()
 {
-    int counter=0;
-    for(Agent Smith : agents){
+    int counter = 0;
+    for (Agent Smith : agents)
+    {
         Smith.setcId(counter);
         Coalitions[counter][0] = Smith.getPartyId();
-        if(graph.getMandates(Smith.getPartyId()) >= 61){
+        if (graph.getMandates(Smith.getPartyId()) >= 61)
+        {
             have_sixtyOne = true;
         }
         counter++;
@@ -18,10 +20,12 @@ void Simulation::step() // running step for parties and agents
 {
     // TODO: implement this method
     vector<Party> p_list = mGraph.getParties();
-    for(Party p : p_list){
+    for (Party p : p_list)
+    {
         p.step(*this);
     }
-    for(Agent Smith : mAgents){
+    for (Agent Smith : mAgents)
+    {
         Smith.step(*this);
     }
 }
@@ -31,8 +35,10 @@ bool Simulation::shouldTerminate() const
     // TODO implement this method
     bool flag(true); // used to signal whether all the parties are in joined state
     vector<Party> p_list = getGraph().getParties();
-    for(Party p : p_list){
-        if(p.getState() != Joined){
+    for (Party p : p_list)
+    {
+        if (p.getState() != Joined)
+        {
             flag = false;
         }
     }
