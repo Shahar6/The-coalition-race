@@ -28,7 +28,12 @@ public:
     const int &getId() const;
     const vector<int> &getOffers() const;
     const void AddOffer(int cId);
-
+    // rule of 5
+    Party(const Party& other);
+    ~Party();
+    Party& operator=(const Party& other);
+    Party(Party&& other) noexcept;
+    Party& operator=(Party&& other) noexcept;
 private:
     int mId;
     string mName;

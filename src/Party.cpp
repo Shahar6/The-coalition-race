@@ -5,6 +5,45 @@
 Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), timer(0)
 {
 }
+Party::Party(const Party &other)
+{
+    *this = other;
+}
+Party::~Party()
+{
+    delete &mName;
+    delete mJoinPolicy;
+}
+Party &Party::operator=(const Party &other)
+{
+    if (this != &other)
+    {
+        mId = other.mId;
+        mName = other.mName;
+        mMandates = other.mMandates;
+        mJoinPolicy = other.mJoinPolicy;
+        mState = other.mState;
+        timer = other.timer;
+        offersbycId.clear();
+        for (int i : other.offersbycId)
+        {
+            offersbycId.push_back(i);
+        }
+    }
+    return *this;
+}
+Party::Party(Party &&other) noexcept : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mJoinPolicy(other.mJoinPolicy), mState(other.mState), timer(other.timer), offersbycId(other.offersbycId)
+{
+    other.mName = nullptr;
+    other.mJoinPolicy = nullptr;
+}
+
+Party &Party::operator=(Party &&other) noexcept
+{
+    mId = other.mId, mName = other.mName, mMandates = other.mMandates, mJoinPolicy = other.mJoinPolicy, mState = other.mState, timer = other.timer, offersbycId = other.offersbycId;
+    other.mName = nullptr;
+    other.mJoinPolicy = nullptr;
+}
 State Party::getState() const
 {
     return mState;
