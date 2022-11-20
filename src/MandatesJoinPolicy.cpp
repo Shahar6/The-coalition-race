@@ -1,6 +1,9 @@
 #include "JoinPolicy.h"
 #include "Party.h"
 #include <vector>
+MandatesJoinPolicy::MandatesJoinPolicy() {
+
+}
 const int MandatesJoinPolicy::join(Party &party, Graph &graph)
 {
    vector<int> offers = party.getOffers();

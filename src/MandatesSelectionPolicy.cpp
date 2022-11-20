@@ -1,5 +1,7 @@
 #include "SelectionPolicy.h"
-
+MandatesSelectionPolicy::MandatesSelectionPolicy()
+{
+}
 const int MandatesSelectionPolicy::select(Agent &agent, Graph &graph, Simulation &s)
 {
   vector<int> neighbors = *graph.getValidNeighborsIds(agent.getId(), agent.getcId(), s);

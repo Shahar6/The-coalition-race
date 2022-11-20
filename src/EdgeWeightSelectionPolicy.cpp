@@ -1,5 +1,7 @@
 #include "SelectionPolicy.h"
-
+EdgeWeightSelectionPolicy::EdgeWeightSelectionPolicy()
+{
+}
 const int EdgeWeightSelectionPolicy::select(Agent &agent, Graph &graph, Simulation &s)
 {
     vector<int> neighbors = *graph.getValidNeighborsIds(agent.getId(), agent.getcId(), s);

@@ -1,21 +1,23 @@
 #pragma once
 #include "Agent.h"
-#include "Party.h"
 #include "Graph.h"
+#include "Simulation.h"
 
 class SelectionPolicy
 {
 public:
-  virtual const void select() = 0;
+  virtual const int select(Agent &agent, Graph &graph, Simulation &s) = 0;
 };
 
 class MandatesSelectionPolicy : public SelectionPolicy
 {
 public:
-  virtual const int select(Agent &a, Graph &g, Simulation &s);
+  MandatesSelectionPolicy();
+  virtual const int select(Agent &agent, Graph &graph, Simulation &s);
 };
 class EdgeWeightSelectionPolicy : public SelectionPolicy
 {
 public:
-  virtual const int select(Agent &a, Graph &g, Simulation &s);
+  EdgeWeightSelectionPolicy();
+  virtual const int select(Agent &agent, Graph &graph, Simulation &s);
 };

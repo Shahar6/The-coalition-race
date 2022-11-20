@@ -2,10 +2,8 @@
 #include <string>
 #include <iostream>
 #include <fstream>
-
 #include "json.hpp"
 #include "Simulation.h"
-#include "Agent.h"
 #include "SelectionPolicy.h"
 #include "JoinPolicy.h"
 

@@ -1,7 +1,6 @@
 #pragma once
 
 #include <vector>
-#include "Graph.h"
 #include "Agent.h"
 
 using std::string;
