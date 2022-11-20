@@ -1,19 +1,14 @@
 #include "Simulation.h"
 
-Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), have_sixtyOne(false), Coalitions()
+Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), Coalitions()
 {
     int counter = 0;
     for (Agent Smith : agents)
     {
         Smith.setcId(counter);
         Coalitions[counter][0] = Smith.getPartyId();
-        if (graph.getMandates(Smith.getPartyId()) >= 61)
-        {
-            have_sixtyOne = true;
-        }
         counter++;
     }
-    // You can change the implementation of the constructor, but not the signature!
 }
 
 void Simulation::step() // running step for parties and agents
