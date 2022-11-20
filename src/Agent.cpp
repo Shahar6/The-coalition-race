@@ -1,4 +1,5 @@
 #include "Agent.h"
+#include "SelectionPolicy.h"
 
 Agent::Agent(int agentId, int partyId, SelectionPolicy *selectionPolicy) : mAgentId(agentId), mPartyId(partyId), mSelectionPolicy(selectionPolicy), cId(-1)
 {
@@ -17,7 +18,13 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
-    // TODO: implement this method
+    Graph g = sim.getGraph();
+    int pId = this->mSelectionPolicy->select(*this, g, sim);
+    if (pId != -1)
+    {
+        Party toOffer = g.getParty(pId);
+        toOffer.AddOffer(this->getcId());
+    }
 }
 int Agent::getcId() const
 {
@@ -27,4 +34,8 @@ int Agent::getcId() const
 void Agent::setcId(int id)
 {
     cId = id;
+}
+
+SelectionPolicy* Agent::getPolicy() const{
+    return this->mSelectionPolicy;
 }

@@ -15,6 +15,7 @@ public:
     void step(Simulation &);
     void setcId(int cId);
     int getcId() const;
+    SelectionPolicy *getPolicy() const;
 
 private:
     int cId;

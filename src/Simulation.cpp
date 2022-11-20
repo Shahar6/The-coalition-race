@@ -18,21 +18,19 @@ Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgen
 
 void Simulation::step() // running step for parties and agents
 {
-    // TODO: implement this method
-    vector<Party> p_list = mGraph.getParties();
-    for (Party p : p_list)
-    {
-        p.step(*this);
-    }
-    for (Agent Smith : mAgents)
-    {
-        Smith.step(*this);
-    }
+        vector<Party> p_list = mGraph.getParties();
+        for (Party p : p_list)
+        {
+            p.step(*this);
+        }
+        for (Agent Smith : mAgents)
+        {
+            Smith.step(*this);
+        }
 }
 
 bool Simulation::shouldTerminate() const
 {
-    // TODO implement this method
     bool flag(true); // used to signal whether all the parties are in joined state
     vector<Party> p_list = getGraph().getParties();
     for (Party p : p_list)
@@ -42,7 +40,24 @@ bool Simulation::shouldTerminate() const
             flag = false;
         }
     }
-    return flag || have_sixtyOne;
+    if(!flag){ // if not all are joined, checking whether a party has 61 or more mandates
+        int sum = 0;
+        for(vector<int> i : this->getPartiesByCoalitions()){
+            for(int j : i){
+                sum = sum + this->getParty(j).getMandates();
+            }
+            if(sum >= 61){
+                return true;
+            }
+            else{
+                sum=0;
+            }
+        }
+    }
+    else{
+        return true;
+    }
+    return false;
 }
 
 const Graph &Simulation::getGraph() const
@@ -65,4 +80,14 @@ const Party &Simulation::getParty(int partyId) const
 const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
     return Coalitions;
+}
+
+void Simulation::addPartiesByCoalition(int cid, int pid)
+{
+    this->Coalitions[cid].push_back(pid);
+}
+
+void Simulation::addAgent(int agentId, int partyId, SelectionPolicy *selectionPolicy)
+{
+    this->mAgents.push_back(Agent(agentId, partyId, selectionPolicy));
 }

@@ -33,6 +33,7 @@ private:
     int mId;
     string mName;
     int mMandates;
+    int timer;
     JoinPolicy *mJoinPolicy;
     State mState;
     vector<int> offersbycId;

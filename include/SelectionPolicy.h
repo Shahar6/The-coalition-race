@@ -1,6 +1,4 @@
 #pragma once
-#include "Agent.h"
-#include "Graph.h"
 #include "Simulation.h"
 
 class SelectionPolicy

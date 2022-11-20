@@ -1,6 +1,8 @@
 #include "Party.h"
+#include "JoinPolicy.h"
 #include "Graph.h"
-Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting)
+#include "Simulation.h"
+Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), timer(0)
 {
 }
 State Party::getState() const
@@ -25,7 +27,27 @@ const string &Party::getName() const
 
 void Party::step(Simulation &s)
 {
-    // TODO: implement this method
+    if (this->getState() == Waiting)
+    {
+        if (this->getOffers().size() > 0)
+        {
+            this->timer = 1;
+            this->setState(CollectingOffers);
+        }
+    }
+    else if (timer < 3)
+    {
+        timer++;
+    }
+    else
+    {
+        Graph g = s.getGraph();
+        int cId = this->mJoinPolicy->join(*this, g);
+        s.addPartiesByCoalition(cId, this->getId());
+        int aid = s.getAgents().size();
+        s.addAgent(aid, this->getId(), s.getAgents()[cId].getPolicy());
+        this->setState(Joined);
+    }
 }
 
 const int &Party::getId() const
