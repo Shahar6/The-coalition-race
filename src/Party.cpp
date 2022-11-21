@@ -5,14 +5,23 @@
 Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), timer(0)
 {
 }
-Party::Party(const Party &other)
+Party::Party(const Party &other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), timer(other.timer), mState(other.mState), offersbycId()
 {
-    *this = other;
+    if(other.mJoinPolicy->type() == 'M'){
+        this->mJoinPolicy = new MandatesJoinPolicy();
+    }
+    else{
+        this->mJoinPolicy = new LastOfferJoinPolicy();
+    }
+    for(int i : other.offersbycId){
+        offersbycId.push_back(i);
+    }
 }
 Party::~Party()
 {
-    //delete &mName; should this be deleted?
-    //delete mJoinPolicy;
+    if(mJoinPolicy){
+        delete mJoinPolicy;
+    }
 }
 Party &Party::operator=(const Party &other)
 {
@@ -21,9 +30,9 @@ Party &Party::operator=(const Party &other)
         mId = other.mId;
         mName = other.mName;
         mMandates = other.mMandates;
+        timer = other.timer;
         mJoinPolicy = other.mJoinPolicy;
         mState = other.mState;
-        timer = other.timer;
         offersbycId.clear();
         for (int i : other.offersbycId)
         {
@@ -32,10 +41,11 @@ Party &Party::operator=(const Party &other)
     }
     return *this;
 }
-Party::Party(Party &&other) noexcept : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mJoinPolicy(other.mJoinPolicy), mState(other.mState), timer(other.timer), offersbycId(other.offersbycId)
+Party::Party(Party &&other) noexcept : mId(other.mId), mName{other.mName}, mMandates(other.mMandates), timer(other.timer), mJoinPolicy{other.mJoinPolicy}, mState(other.mState), offersbycId(other.offersbycId)
 {
-    //other.mName = nullptr; should this be deleted?
-    //other.mJoinPolicy = nullptr;
+    if(other.mJoinPolicy){
+        other.mJoinPolicy = nullptr;
+    }
 }
 
 Party &Party::operator=(Party &&other) noexcept

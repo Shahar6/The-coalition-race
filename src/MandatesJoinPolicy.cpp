@@ -19,3 +19,6 @@ const int MandatesJoinPolicy::join(Party &party, Graph &graph)
    }
    return firstIdParty;
 }
+const char MandatesJoinPolicy::type(){
+   return 'M';
+}
