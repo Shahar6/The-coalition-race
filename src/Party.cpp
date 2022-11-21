@@ -11,8 +11,8 @@ Party::Party(const Party &other)
 }
 Party::~Party()
 {
-    delete &mName;
-    delete mJoinPolicy;
+    //delete &mName; should this be deleted?
+    //delete mJoinPolicy;
 }
 Party &Party::operator=(const Party &other)
 {
@@ -34,8 +34,8 @@ Party &Party::operator=(const Party &other)
 }
 Party::Party(Party &&other) noexcept : mId(other.mId), mName(other.mName), mMandates(other.mMandates), mJoinPolicy(other.mJoinPolicy), mState(other.mState), timer(other.timer), offersbycId(other.offersbycId)
 {
-    other.mName = nullptr;
-    other.mJoinPolicy = nullptr;
+    //other.mName = nullptr; should this be deleted?
+    //other.mJoinPolicy = nullptr;
 }
 
 Party &Party::operator=(Party &&other) noexcept

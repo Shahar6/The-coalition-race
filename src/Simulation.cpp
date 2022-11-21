@@ -2,11 +2,12 @@
 
 Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgents(agents), Coalitions()
 {
+    Coalitions.resize(agents.size());
     int counter = 0;
     for (Agent Smith : agents)
     {
         Smith.setcId(counter);
-        Coalitions[counter][0] = Smith.getPartyId();
+        Coalitions[counter].push_back(Smith.getPartyId());
         counter++;
     }
 }
