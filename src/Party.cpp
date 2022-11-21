@@ -2,10 +2,10 @@
 #include "JoinPolicy.h"
 #include "Graph.h"
 #include "Simulation.h"
-Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), mJoinPolicy(jp), mState(Waiting), timer(0)
+Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), timer(0), mJoinPolicy(jp), mState(Waiting), offersbycId()
 {
 }
-Party::Party(const Party &other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), timer(other.timer), mState(other.mState), offersbycId()
+Party::Party(const Party &other) : mId(other.mId), mName(other.mName), mMandates(other.mMandates), timer(other.timer), mJoinPolicy() ,mState(other.mState), offersbycId()
 {
     if(other.mJoinPolicy->type() == 'M'){
         this->mJoinPolicy = new MandatesJoinPolicy();
@@ -53,6 +53,7 @@ Party &Party::operator=(Party &&other) noexcept
     mId = other.mId, mName = other.mName, mMandates = other.mMandates, mJoinPolicy = other.mJoinPolicy, mState = other.mState, timer = other.timer, offersbycId = other.offersbycId;
     other.mName = nullptr;
     other.mJoinPolicy = nullptr;
+    return *this;
 }
 State Party::getState() const
 {

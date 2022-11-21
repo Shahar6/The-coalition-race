@@ -4,6 +4,9 @@
 LastOfferJoinPolicy::LastOfferJoinPolicy()
 {
 }
+LastOfferJoinPolicy::~LastOfferJoinPolicy()
+{
+}
 const int LastOfferJoinPolicy::join(Party &party, Graph &graph)
 {
     vector<int> offers = party.getOffers();

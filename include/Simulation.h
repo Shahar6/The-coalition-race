@@ -10,7 +10,6 @@ class Simulation
 {
 public:
     Simulation(Graph g, vector<Agent> agents);
-    vector<vector<int>> Coalitions;
     void step();
     bool shouldTerminate() const;
     const Graph &getGraph() const;
@@ -23,4 +22,5 @@ public:
 private:
     Graph mGraph;
     vector<Agent> mAgents;
+    vector<vector<int>> Coalitions;
 };

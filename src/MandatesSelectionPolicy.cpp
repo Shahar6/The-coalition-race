@@ -2,12 +2,15 @@
 MandatesSelectionPolicy::MandatesSelectionPolicy()
 {
 }
+MandatesSelectionPolicy::~MandatesSelectionPolicy()
+{
+}
 const int MandatesSelectionPolicy::select(Agent &agent, Graph &graph, Simulation &s)
 {
   vector<int> neighbors = *graph.getValidNeighborsIds(agent.getId(), agent.getcId(), s);
   int maxMandates = -1;
   int partyId = -1;
-  for (int i = 0; i < neighbors.size(); i++)
+  for (int i = 0; i < (int)(neighbors.size()); i++)
   {
     if (maxMandates < graph.getMandates(neighbors[i]))
     {
@@ -16,4 +19,9 @@ const int MandatesSelectionPolicy::select(Agent &agent, Graph &graph, Simulation
     }
   }
   return partyId;
+}
+
+const char MandatesSelectionPolicy::type()
+{
+  return 'M';
 }
