@@ -67,12 +67,12 @@ int Agent::getPartyId() const
 
 void Agent::step(Simulation &sim)
 {
-    Graph g = sim.getGraph();
+    Graph g = sim.ncgetGraph();
     int pId = this->mSelectionPolicy->select(*this, g, sim);
     if (pId != -1)
     {
-        Party toOffer = g.getParty(pId);
-        toOffer.AddOffer(this->getcId());
+        Party p = g.ncgetParty(pId);
+        p.AddOffer(this->getcId());
     }
 }
 int Agent::getcId() const

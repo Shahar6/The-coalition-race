@@ -14,20 +14,20 @@ Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgen
 
 void Simulation::step() // running step for parties and agents
 {
-        vector<Party> p_list = mGraph.getParties();
-        for (Party p : p_list)
-        {
-            p.step(*this);
-        }
-        for (Agent Smith : mAgents)
-        {
-            Smith.step(*this);
-        }
+    vector<Party> p_list = mGraph.ncgetParties();
+    for (Party p : p_list)
+    {
+        p.step(*this);
+    }
+    for (Agent Smith : mAgents)
+    {
+        Smith.step(*this);
+    }
 }
 
 bool Simulation::shouldTerminate() const
 {
-    bool flag(true); // used to signal whether all the parties are in joined state
+    bool flag = true; // used to signal whether all the parties are in joined state
     vector<Party> p_list = getGraph().getParties();
     for (Party p : p_list)
     {
@@ -36,25 +36,36 @@ bool Simulation::shouldTerminate() const
             flag = false;
         }
     }
-    if(!flag){ // if not all are joined, checking whether a party has 61 or more mandates
+    if (!flag)
+    { // if not all are joined, checking whether a party has 61 or more mandates
         int sum = 0;
-        for(vector<int> i : this->getPartiesByCoalitions()){
-            for(int j : i){
+        for (vector<int> i : this->getPartiesByCoalitions())
+        {
+            for (int j : i)
+            {
                 sum = sum + this->getParty(j).getMandates();
             }
-            if(sum >= 61){
+            if (sum >= 61)
+            {
                 return true;
             }
-            else{
-                sum=0;
+            else
+            {                
+                sum = 0;
             }
         }
     }
-    else{
+    else
+    {
         return true;
     }
     return false;
 }
+Graph &Simulation::ncgetGraph() 
+{
+    return mGraph;
+}
+
 
 const Graph &Simulation::getGraph() const
 {

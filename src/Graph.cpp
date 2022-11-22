@@ -19,7 +19,10 @@ int Graph::getNumVertices() const
 {
     return mVertices.size();
 }
-
+Party &Graph::ncgetParty(int partyId)
+{
+    return mVertices[partyId];
+}
 const Party &Graph::getParty(int partyId) const
 {
     return mVertices[partyId];
@@ -34,23 +37,27 @@ const vector<int> *Graph::getValidNeighborsIds(int partyId, int cId, Simulation 
 {
     vector<int> *ret = new vector<int>;
     vector<int> all_n = getNeighborsIds(partyId, s);
+    int indexCounter = 0;
     for (int p_edge : all_n)
     {
-        if (this->getParty(p_edge).getState() != Joined) // checks that the party isn't in a coalition already
+        if (p_edge != 0 && (this->getParty(indexCounter).getState() != Joined)) // checks that the party isn't in a coalition already
         {
-            vector<int> p_offers = this->getParty(p_edge).getOffers();
+            vector<int> p_offers = this->getParty(indexCounter).getOffers();
             if (std::count(p_offers.begin(), p_offers.end(), cId)) // checks if the party has an offer from the coalition
             {
             }
             else
             {
-                (*ret).push_back(p_edge); // adds the party to the vector
+                (*ret).push_back(indexCounter); // adds the party to the vector
             }
         }
+        indexCounter++;
     }
     return ret;
 }
-
+vector<Party> &Graph::ncgetParties(){
+    return mVertices;
+}
 // this method returns a reference to the vector containing all the parties
 const vector<Party> &Graph::getParties() const
 {

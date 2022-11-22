@@ -1,5 +1,5 @@
 #pragma once
-
+#include <iostream>
 #include <vector>
 #include "Agent.h"
 
@@ -12,6 +12,7 @@ public:
     Simulation(Graph g, vector<Agent> agents);
     void step();
     bool shouldTerminate() const;
+    Graph &ncgetGraph();
     const Graph &getGraph() const;
     const vector<Agent> &getAgents() const;
     const Party &getParty(int partyId) const;

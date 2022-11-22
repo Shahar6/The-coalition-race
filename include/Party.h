@@ -27,7 +27,7 @@ public:
     const string &getName() const;
     const int &getId() const;
     const vector<int> &getOffers() const;
-    const void AddOffer(int cId);
+    void AddOffer(int cId);
     // rule of 5
     Party(const Party& other);
     ~Party();
