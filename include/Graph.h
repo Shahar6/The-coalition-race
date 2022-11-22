@@ -10,6 +10,7 @@ class Graph
 {
 public:
     Graph(vector<Party> vertices, vector<vector<int>> edges);
+    int getcMandates(int cId, Simulation &sim) const;
     int getMandates(int partyId) const;
     int getEdgeWeight(int v1, int v2) const;
     int getNumVertices() const;
@@ -18,7 +19,7 @@ public:
     vector<Party> &ncgetParties();
     const vector<Party> &getParties() const;
     const vector<int> &getNeighborsIds(int partyId, Simulation &s) const;
-    const vector<int> *getValidNeighborsIds(int partyId, int cId, Simulation &) const; // the one who uses this function is responsible to delete the object!
+    const vector<int> getValidNeighborsIds(int partyId, int cId, Simulation &) const; // the one who uses this function is responsible to delete the object!
 
 private:
     vector<Party> mVertices;

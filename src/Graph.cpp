@@ -1,8 +1,20 @@
 #include "Graph.h"
+#include "Simulation.h"
 
 Graph::Graph(vector<Party> vertices, vector<vector<int>> edges) : mVertices(vertices), mEdges(edges)
 {
     // You can change the implementation of the constructor, but not the signature!
+}
+
+int Graph::getcMandates(int cId, Simulation &sim) const
+{
+    const vector<int>& li = sim.getPartiesByCoalition(cId);
+    int sum = 0;
+    for (int i : li)
+    {
+        sum += this->getParty(i).getMandates();
+    }
+    return sum;
 }
 
 int Graph::getMandates(int partyId) const
@@ -33,9 +45,9 @@ const vector<int> &Graph::getNeighborsIds(int partyId, Simulation &s) const
 }
 
 // this method returns only the neighbors u may offer to join ur coalition, remember to delete the vector after usage
-const vector<int> *Graph::getValidNeighborsIds(int partyId, int cId, Simulation &s) const
+const vector<int> Graph::getValidNeighborsIds(int partyId, int cId, Simulation &s) const
 {
-    vector<int> *ret = new vector<int>;
+    vector<int> ret;
     vector<int> all_n = getNeighborsIds(partyId, s);
     int indexCounter = 0;
     for (int p_edge : all_n)
@@ -48,14 +60,16 @@ const vector<int> *Graph::getValidNeighborsIds(int partyId, int cId, Simulation 
             }
             else
             {
-                (*ret).push_back(indexCounter); // adds the party to the vector
+                ret.push_back(indexCounter); // adds the party to the vector
             }
         }
         indexCounter++;
     }
+
     return ret;
 }
-vector<Party> &Graph::ncgetParties(){
+vector<Party> &Graph::ncgetParties()
+{
     return mVertices;
 }
 // this method returns a reference to the vector containing all the parties

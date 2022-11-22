@@ -7,7 +7,7 @@ LastOfferJoinPolicy::LastOfferJoinPolicy()
 LastOfferJoinPolicy::~LastOfferJoinPolicy()
 {
 }
-const int LastOfferJoinPolicy::join(Party &party, Graph &graph)
+const int LastOfferJoinPolicy::join(Party &party, Graph &graph, Simulation &sim)
 {
     vector<int> offers = party.getOffers();
     return offers[offers.size() - 1];

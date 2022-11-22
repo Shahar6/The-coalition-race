@@ -4,7 +4,7 @@ Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgen
 {
     Coalitions.resize(agents.size());
     int counter = 0;
-    for (Agent Smith : agents)
+    for (Agent &Smith : mAgents)
     {
         Smith.setcId(counter);
         Coalitions[counter].push_back(Smith.getPartyId());
@@ -88,7 +88,9 @@ const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 {
     return Coalitions;
 }
-
+const vector<int>& Simulation::getPartiesByCoalition(int cId) const{
+    return this->Coalitions[cId];
+}
 void Simulation::addPartiesByCoalition(int cid, int pid)
 {
     Coalitions[cid].push_back(pid);
@@ -97,4 +99,7 @@ void Simulation::addPartiesByCoalition(int cid, int pid)
 void Simulation::addAgent(int agentId, int partyId, SelectionPolicy *selectionPolicy)
 {
     mAgents.push_back(Agent(agentId, partyId, selectionPolicy));
+}
+Agent &Simulation::getAgent(int agentId){
+    return mAgents[agentId];
 }

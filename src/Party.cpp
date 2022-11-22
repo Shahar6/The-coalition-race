@@ -2,6 +2,7 @@
 #include "JoinPolicy.h"
 #include "Graph.h"
 #include "Simulation.h"
+#include "SelectionPolicy.h"
 Party::Party(int id, string name, int mandates, JoinPolicy *jp) : mId(id), mName(name), mMandates(mandates), timer(0), mJoinPolicy(jp), mState(Waiting), offersbycId()
 {
 }
@@ -94,27 +95,32 @@ void Party::step(Simulation &s)
     {
         if (this->getState() == Waiting)
         {
-            std::cout << "Waiting ";
             if (offersbycId.size() > 0)
             {
-                std::cout << "0 Offers ";
                 this->timer = 1;
                 mState = CollectingOffers;
             }
         }
         else if (timer < 3)
         {
-            std::cout << "timer++ ";
             timer++;
         }
         else
         {
-            std::cout << "joining ";
             Graph &g = s.ncgetGraph();
-            int cId = this->mJoinPolicy->join(*this, g);
+            int cId = this->mJoinPolicy->join(*this, g, s);
             s.addPartiesByCoalition(cId, this->getId());
             int aid = s.getAgents().size();
-            s.addAgent(aid, this->getId(), s.getAgents()[cId].getPolicy());
+            if(s.getAgents()[cId].getPolicy()->type() == 'M'){
+                auto jp = new MandatesSelectionPolicy;
+                s.addAgent(aid, this->getId(), jp);
+            }
+            else{
+                auto jp = new EdgeWeightSelectionPolicy;
+                s.addAgent(aid, this->getId(), jp);
+            }
+            Agent& sm = s.getAgent(aid);
+            sm.setcId(cId);
             this->setState(Joined);
         }
     }
