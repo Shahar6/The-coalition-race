@@ -31,11 +31,19 @@ Party &Party::operator=(const Party &other)
 {
     if (this != &other)
     {
+        if(mJoinPolicy){
+            delete mJoinPolicy;
+        }
+        if(other.mJoinPolicy->type() == 'M'){
+            mJoinPolicy = new MandatesJoinPolicy();
+        }
+        else{
+            mJoinPolicy = new LastOfferJoinPolicy();
+        }
         mId = other.mId;
         mName = other.mName;
         mMandates = other.mMandates;
         timer = other.timer;
-        mJoinPolicy = other.mJoinPolicy;
         mState = other.mState;
         offersbycId.clear();
         for (int i : other.offersbycId)
@@ -55,8 +63,8 @@ Party::Party(Party &&other) noexcept : mId(other.mId), mName{other.mName}, mMand
 
 Party &Party::operator=(Party &&other) noexcept
 {
+    if(mJoinPolicy) delete mJoinPolicy;
     mId = other.mId, mName = other.mName, mMandates = other.mMandates, mJoinPolicy = other.mJoinPolicy, mState = other.mState, timer = other.timer, offersbycId = other.offersbycId;
-    other.mName = nullptr;
     other.mJoinPolicy = nullptr;
     return *this;
 }
@@ -87,11 +95,11 @@ void Party::step(Simulation &s)
         if (this->getState() == Waiting)
         {
             std::cout << "Waiting ";
-            if (this->offersbycId.size() > 0)
+            if (offersbycId.size() > 0)
             {
                 std::cout << "0 Offers ";
                 this->timer = 1;
-                this->setState(CollectingOffers);
+                mState = CollectingOffers;
             }
         }
         else if (timer < 3)
@@ -102,7 +110,7 @@ void Party::step(Simulation &s)
         else
         {
             std::cout << "joining ";
-            Graph g = s.getGraph();
+            Graph &g = s.ncgetGraph();
             int cId = this->mJoinPolicy->join(*this, g);
             s.addPartiesByCoalition(cId, this->getId());
             int aid = s.getAgents().size();

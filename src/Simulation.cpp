@@ -14,8 +14,8 @@ Simulation::Simulation(Graph graph, vector<Agent> agents) : mGraph(graph), mAgen
 
 void Simulation::step() // running step for parties and agents
 {
-    vector<Party> p_list = mGraph.ncgetParties();
-    for (Party p : p_list)
+    vector<Party> &p_list = mGraph.ncgetParties();
+    for (Party &p : p_list)
     {
         p.step(*this);
     }
@@ -91,10 +91,10 @@ const vector<vector<int>> Simulation::getPartiesByCoalitions() const
 
 void Simulation::addPartiesByCoalition(int cid, int pid)
 {
-    this->Coalitions[cid].push_back(pid);
+    Coalitions[cid].push_back(pid);
 }
 
 void Simulation::addAgent(int agentId, int partyId, SelectionPolicy *selectionPolicy)
 {
-    this->mAgents.push_back(Agent(agentId, partyId, selectionPolicy));
+    mAgents.push_back(Agent(agentId, partyId, selectionPolicy));
 }
