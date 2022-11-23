@@ -95,11 +95,6 @@ void Party::step(Simulation &s)
     {
         if (this->getState() == Waiting)
         {
-            if (offersbycId.size() > 0)
-            {
-                this->timer = 1;
-                mState = CollectingOffers;
-            }
         }
         else if (timer < 3)
         {
@@ -139,4 +134,7 @@ const vector<int> &Party::getOffers() const
 void Party::AddOffer(int cId)
 {
     offersbycId.push_back(cId);
+}
+void Party::setTimer(int t){
+    timer = t;
 }

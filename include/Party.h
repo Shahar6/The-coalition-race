@@ -34,6 +34,7 @@ public:
     Party& operator=(const Party& other);
     Party(Party&& other) noexcept;
     Party& operator=(Party&& other) noexcept;
+    void setTimer(int t);
 private:
     int mId;
     string mName;

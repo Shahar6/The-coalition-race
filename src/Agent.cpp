@@ -72,6 +72,10 @@ void Agent::step(Simulation &sim)
     if (pId != -1)
     {
         Party &p = g.ncgetParty(pId);
+        if(p.getState() == Waiting){
+            p.setState(CollectingOffers);
+            p.setTimer(1);
+        }
         p.AddOffer(this->getcId());
     }
 }
